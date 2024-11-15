@@ -13,6 +13,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { SignInFlow } from "../types";
+import { useAuthActions } from "@convex-dev/auth/react";
 import { useState } from "react";
 
 interface SignInCardProps {
@@ -20,9 +21,27 @@ interface SignInCardProps {
 }
 
 const SignInCard = ({ setState }: SignInCardProps) => {
+  const { signIn} = useAuthActions()
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const[pending, setPending] = useState(false);
+
+  const handleProviderSignIn = (value: 'github' | 'google') => {
+    setPending(true);
+    signIn(value)
+    .finally(() => {
+      setPending(false)
+    })
+  }
+
+  const handleSignIn = (value: 'github' | 'google') => {
+    setPending(true);
+    signIn(value)
+    .finally(() => {
+      setPending(false)
+    })
+  }
 
   return (
     <Card className="w-full h-full p-8">
@@ -36,7 +55,7 @@ const SignInCard = ({ setState }: SignInCardProps) => {
       <CardContent className="space-y-5 px-0 pb-0">
         <form className="space-y-2.5">
           <Input
-            disabled={false}
+            disabled={pending}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
@@ -46,7 +65,7 @@ const SignInCard = ({ setState }: SignInCardProps) => {
 
           <div className="relative">
             <Input
-              disabled={false}
+              disabled={pending}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
@@ -65,7 +84,7 @@ const SignInCard = ({ setState }: SignInCardProps) => {
               />
             )}
           </div>
-          <Button size="lg" className="w-full" type="submit" disabled={false}>
+          <Button size="lg" className="w-full" type="submit" disabled={pending}>
             Continue
           </Button>
         </form>
@@ -73,8 +92,8 @@ const SignInCard = ({ setState }: SignInCardProps) => {
         <div className="flex flex-col gap-y-2.5">
           <Button
             variant="outline"
-            disabled={false}
-            onClick={() => {}}
+            disabled={pending}
+            onClick={() => handleSignIn('google')}
             size="lg"
             className="w-full relative"
           >
@@ -83,8 +102,8 @@ const SignInCard = ({ setState }: SignInCardProps) => {
           </Button>
           <Button
             variant="outline"
-            disabled={false}
-            onClick={() => {}}
+            disabled={pending}
+            onClick={() => handleProviderSignIn('github')}
             size="lg"
             className="w-full relative"
           >
