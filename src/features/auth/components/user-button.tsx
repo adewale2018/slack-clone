@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuthActions } from "@convex-dev/auth/react";
 
-import { useCurrentUser } from "../hooks/use-current-user";
+import { useCurrentUser } from "../apis/use-current-user";
 import { Loader, LogOut } from "lucide-react";
 
 export const UserButton = () => {
