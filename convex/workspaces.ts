@@ -9,7 +9,7 @@ const generateCode = () => {
     () => "0123456789abcdefghijklmnopqrstuvwxyz"[Math.floor(Math.random() * 36)]
   ).join("");
   return code;
-}; 
+};
 
 export const get = query({
   args: {},
@@ -47,7 +47,7 @@ export const create = mutation({
       throw new Error("UnAuthorized!");
     }
 
-    //TODO: Create a proper method later! 
+    //TODO: Create a proper method later!
     const joinCode = generateCode();
     const workspaceId = await ctx.db.insert("workspaces", {
       name: args.name,
@@ -81,7 +81,7 @@ export const getById = query({
     if (!member) {
       return null;
     }
-
+    
     return await ctx.db.get(args.id);
   },
 });
