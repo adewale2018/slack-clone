@@ -1,8 +1,9 @@
+import { AlertTriangle, Loader } from "lucide-react";
+
+import { WorkspaceHeader } from "./workspace-header";
 import { useCurrentMember } from "@/features/members/api/use-current-member";
 import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
-import { Loader, AlertTriangle } from "lucide-react";
-import { WorkspaceHeader } from "./workspace-header";
 
 export const WorkspaceSidebar = () => {
   const workspaceId = useWorkspaceId();
@@ -39,4 +40,3 @@ export const WorkspaceSidebar = () => {
     </div>
   );
 };
- 
