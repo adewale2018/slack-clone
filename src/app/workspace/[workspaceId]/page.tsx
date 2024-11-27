@@ -9,7 +9,7 @@ const WorkspaceIdPage = () => {
   return (
     <div>
       <h1 className="text-lg text-sky-500">
-        Workspace ID PAGE {JSON.stringify(data)}
+        Workspace ID PAGE... {JSON.stringify(data)}
       </h1>
     </div>
   );
