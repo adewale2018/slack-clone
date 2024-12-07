@@ -4,17 +4,17 @@ import { useCallback } from "react";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { useState, useMemo } from "react";
 
-type RequestType = { name: string };
+type RequestType = { id: Id<"workspaces"> };
 type ResponseType = Id<"workspaces"> | null;
 
-type Options = {
+type Options = { 
   onSuccess?: (data: ResponseType) => void;
   onError?: (error: Error) => void;
   onSettled?: () => void;
   throwError?: boolean;
 };
-
-export const useCreateWorkspace = () => {
+ 
+export const useRemoveWorkspace = () => {
   const [status, setStatus] = useState<
     "success" | "error" | "settled" | "pending" | null
   >();
@@ -23,10 +23,10 @@ export const useCreateWorkspace = () => {
 
   const isPending = useMemo(() => status === "pending", [status]);
   const isSuccess = useMemo(() => status === "success", [status]);
-  const isError = useMemo(() => status === "error", [status]);
+  const isError = useMemo(() => status === "error", [status]  );
   const isSettled = useMemo(() => status === "settled ", [status]);
-
-  const mutation = useMutation(api.workspaces.create);
+ 
+  const mutation = useMutation(api.workspaces.remove);
   const mutate = useCallback(
     async (values: RequestType, options?: Options) => {
       try {
@@ -42,7 +42,7 @@ export const useCreateWorkspace = () => {
         options?.onError?.(error as Error);
         if (options?.throwError) {
           throw error;
-        }
+        } 
       } finally {
         setStatus("settled");
         options?.onSettled?.();
